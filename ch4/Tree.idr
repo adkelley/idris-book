@@ -3,6 +3,10 @@ data BSTree : Type -> Type where
   Node  : Ord elem => (left : BSTree elem) -> (val : elem) ->
                       (right : BSTree elem) -> BSTree elem
 
+-- Alternate way to define a BSTree data constructor
+-- data BSTree elem = Empty
+--                  | Node (Tree elem) elem (Tree elem)
+
 %name Tree tree, tree1
 
 insert : Ord elem => elem -> Tree elem -> Tree elem
