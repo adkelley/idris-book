@@ -60,16 +60,17 @@ getEntry pos store =
 
 getId : (store : DataStore) -> (entry: String) -> Nat
 getId store entry =
-  length $ takeWhile (\e => e /= entry) (toList $ items store)
+  -- length $ takeWhile (\e => e /= entry) (toList $ items store)
+  Data.Vect.length $ Prelude.Pairs.DPair.snd $ Data.Vect.takeWhile (\e => e /= entry) $ items store
 
 
 searchResults : (store : DataStore) -> (inp : String) -> Maybe (String, DataStore)
 searchResults store inp =
   let
     results = snd $ Data.Vect.filter (\item => Strings.isInfixOf inp item) (items store)
-    resultIds = map (\result => getId store result) results
+    resultsIds = map (\result => getId store result) results
     resultsStr =
-      (concat $ toList $ Data.Vect.intersperse ", " $ zipWith (\a, b => show a ++ ": " ++ show b) resultIds results) ++ "\n"
+      (concat $ toList $ Data.Vect.intersperse ", " $ zipWith (\a, b => show a ++ ": " ++ show b) resultsIds results) ++ "\n"
   in
     Just (resultsStr, store)
 
